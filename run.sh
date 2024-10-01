@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# Read the port from node.json using jq
+PORT=$(jq -r '.PORT' node.json)
+
 # Build the Docker image
 docker build -t pychainnode .
 
-# Run the container with environment variables and parameters
-docker run -d -p 5005:5005 --name pychainnode_container pychainnode
+# Run the container with the dynamically extracted port
+docker run -d -p $PORT:$PORT --name pychainnode_container pychainnode
