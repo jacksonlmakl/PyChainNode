@@ -14,12 +14,8 @@ COPY requirements.txt /app/requirements.txt
 RUN chmod +x /app/entrypoint.sh
 
 # Install system dependencies and Python requirements
-RUN apt update && apt install -y python3-venv python3-pip \
+RUN apt update && apt install -y python3-venv python3-pip jq \
     && pip install --upgrade pip setuptools wheel \
     && pip install -r /app/requirements.txt
 
-# Expose the necessary port
-EXPOSE 5005
-
-# Set the default command to run entrypoint.sh
-CMD ["/app/entrypoint.sh"]
+# No EXPOSE command here, port is handled dynamically
